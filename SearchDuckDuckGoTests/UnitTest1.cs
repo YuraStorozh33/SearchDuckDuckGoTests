@@ -34,10 +34,10 @@ namespace SearchDuckDuckGoTests
         public void Test1()
         {
             var searchInput = driver.FindElement(_searchInputButton); 
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             searchInput.SendKeys("Weather");                      //ввід в пошуковому вікні
             var search = driver.FindElement(_searchButton);
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             search.Click();                                       //кнопка пошуку
             var collectionLinks = driver.FindElements(_search)    //Получення колекції
            .Where(webElement => (webElement.Displayed == true));  //Фільтрація
@@ -48,9 +48,9 @@ namespace SearchDuckDuckGoTests
             }
             Console.WriteLine($"The display shows {i} search results");
             var searchMore = driver.FindElement(_searchMoreButton);
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             searchMore.Click();                                    //кнопка більше "More Resulst"
-            Thread.Sleep(500);
+            Thread.Sleep(300);
             collectionLinks = driver.FindElements(_search)         //Получення колекції
            .Where(webElement => (webElement.Displayed == true));   //Фільтрація
             int x = 0;
