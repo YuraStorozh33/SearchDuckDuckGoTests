@@ -11,6 +11,7 @@ using System;
 Tests test = new Tests();
 test.Setup();
 test.Test1();
+test.TearDown();
 
 namespace SearchDuckDuckGoTests
 {
@@ -27,51 +28,51 @@ namespace SearchDuckDuckGoTests
         {
             driver = new OpenQA.Selenium.Chrome.ChromeDriver();
             driver.Navigate().GoToUrl("https://duckduckgo.com/");
-            driver.Manage().Window.Maximize();
-            
+            driver.Manage().Window.Maximize();           
         }
         [Test]
         public void Test1()
         {
- 
-            var searchInput = driver.FindElement(_searchInputButton);
+            var searchInput = driver.FindElement(_searchInputButton); 
             Thread.Sleep(500);
-
-            searchInput.SendKeys("Weather");
-
+            searchInput.SendKeys("Weather");                      //ввід в пошуковому вікні
             var search = driver.FindElement(_searchButton);
             Thread.Sleep(500);
-            search.Click();
-            var collectionLinks = driver.FindElements(_search) //Получення колекції
-           .Where(webElement => (webElement.Displayed == true)); //Фільтрація
+            search.Click();                                       //кнопка пошуку
+            var collectionLinks = driver.FindElements(_search)    //Получення колекції
+           .Where(webElement => (webElement.Displayed == true));  //Фільтрація
             int i = 0;
             foreach (var link in collectionLinks)
             {
                 i++;
-
             }
             Console.WriteLine($"The display shows {i} search results");
             var searchMore = driver.FindElement(_searchMoreButton);
             Thread.Sleep(500);
-            searchMore.Click();
+            searchMore.Click();                                    //кнопка більше "More Resulst"
             Thread.Sleep(500);
-            collectionLinks = driver.FindElements(_search) //Получення колекції
-           .Where(webElement => (webElement.Displayed == true)); //Фільтрація
+            collectionLinks = driver.FindElements(_search)         //Получення колекції
+           .Where(webElement => (webElement.Displayed == true));   //Фільтрація
             int x = 0;
             foreach (var link in collectionLinks)
             {
                 x++;
-
             }
             Console.WriteLine($"The display shows {x} search results after click 'More Resulst' button");
             if(x>i)
             {
                 Console.WriteLine("Additional test results are displayed");
+                Console.WriteLine("");
+                Console.WriteLine("");
             }
             else
             {
                 Console.WriteLine("Additional test results are not displayed");
+                Console.WriteLine("");
+                Console.WriteLine("");
             }
+            Assert.AreNotEqual(x,i);
+            Thread.Sleep(1000);
         }
         [TearDown]
         public void TearDown()
